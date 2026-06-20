@@ -4,13 +4,20 @@ import {
   archetypeSegments,
   compatibleFeatureForCompany,
 } from '../selectors'
-import { pickArchetypeId, type Bin } from './bin'
+import { pickArchetype, capFirst, type Bin } from './bin'
 
-const LABEL = '01 Improve'
-const HINT = 'CIRCLES'
+const LABEL = 'Improve'
+const HINT = [
+  'Comprehend the situation',
+  'Identify the user',
+  'Report their needs',
+  'Cut through prioritization',
+  'List solutions',
+  'Evaluate trade-offs',
+  'Summarise',
+]
 
-// T1a: "Improve {feature} for {company}."
-function variantA(ctx: GenContext, archetypeId: string): Prompt {
+function variantA(ctx: GenContext, archetypeId: string, archetypeName: string): Prompt {
   const company = ctx.rng.pick(archetypeCompanies(ctx.data, archetypeId))
   const candidates = compatibleFeatureForCompany(ctx.data, company).filter(
     (f) => f.company_id === null || f.company_id === company.company_id,
@@ -19,22 +26,21 @@ function variantA(ctx: GenContext, archetypeId: string): Prompt {
   return {
     bin: 'improve',
     label: LABEL,
-    archetype: archetypeId,
-    text: `Improve ${feature.feature_name} for ${company.company_name}.`,
+    archetype: archetypeName,
+    text: capFirst(`improve ${feature.feature_name.toLowerCase()} for ${company.company_name.toLowerCase()}.`),
     subject: company.company_name,
     hint: HINT,
   }
 }
 
-// T1b: "Improve {company} for {segment}."
-function variantB(ctx: GenContext, archetypeId: string): Prompt {
+function variantB(ctx: GenContext, archetypeId: string, archetypeName: string): Prompt {
   const company = ctx.rng.pick(archetypeCompanies(ctx.data, archetypeId))
   const segment = ctx.rng.pick(archetypeSegments(ctx.data, archetypeId))
   return {
     bin: 'improve',
     label: LABEL,
-    archetype: archetypeId,
-    text: `Improve ${company.company_name} for ${segment.segment_name}.`,
+    archetype: archetypeName,
+    text: capFirst(`improve ${company.company_name.toLowerCase()} for ${segment.segment_name.toLowerCase()}.`),
     subject: company.company_name,
     hint: HINT,
   }
@@ -45,9 +51,9 @@ export const improve: Bin = {
   label: LABEL,
   hint: HINT,
   generate(ctx) {
-    const archetypeId = pickArchetypeId(ctx)
+    const { id: archetypeId, name: archetypeName } = pickArchetype(ctx)
     return ctx.rng.next() < 0.5
-      ? variantA(ctx, archetypeId)
-      : variantB(ctx, archetypeId)
+      ? variantA(ctx, archetypeId, archetypeName)
+      : variantB(ctx, archetypeId, archetypeName)
   },
 }

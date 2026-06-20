@@ -11,6 +11,8 @@ body,
 #root {
   margin: 0;
   padding: 0;
+  overflow: hidden;
+  height: 100%;
 }
 
 body {
@@ -25,6 +27,7 @@ body {
 #root {
   width: 100%;
   display: flex;
+  align-items: flex-start;
 }
 
 :focus-visible {
@@ -34,9 +37,9 @@ body {
 
 /* ============================= App shell ============================= */
 .app {
-  width: min(700px, 100%);
-  margin: auto;
-  padding: var(--space-8) var(--space-4);
+  width: 100%;
+  margin: 0;
+  padding: var(--space-8);
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -67,7 +70,9 @@ body {
 
 .brand-word {
   font-weight: 700;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.02em;
+  font-size: 2.5rem;
+  line-height: 1;
 }
 
 /* ============================= Deck tabs ============================= */
@@ -80,7 +85,6 @@ body {
 .tab {
   display: inline-flex;
   align-items: center;
-  gap: 0.35em;
   padding: var(--space-2) var(--space-4);
   border-radius: var(--radius-pill);
   border: 1px solid var(--color-ink);
@@ -90,20 +94,13 @@ body {
   font-size: 0.85rem;
   font-weight: 600;
   cursor: pointer;
+  transition: background var(--dur) var(--ease), color var(--dur) var(--ease);
 }
 
 .tab-active {
   background: var(--color-ink);
   color: var(--color-paper);
   border-color: var(--color-ink);
-}
-
-.tab-num {
-  color: var(--color-gray);
-}
-
-.tab-active .tab-num {
-  color: var(--color-gray);
 }
 
 /* ============================= Stage ============================= */
@@ -113,12 +110,18 @@ body {
   max-width: 100%;
   height: var(--hero-h);
   margin-top: var(--space-2);
+  align-self: center;
+  transition: transform 180ms cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+.stage-group.open {
+  transform: translateX(calc((var(--hint-w) + var(--space-3)) / -2));
 }
 
 .prompt-card {
   position: absolute;
   inset: 0;
-  z-index: 2;
+  z-index: 4;
   width: var(--hero-w);
   max-width: 100%;
   height: var(--hero-h);
@@ -132,6 +135,7 @@ body {
   flex-direction: column;
   gap: var(--space-4);
   animation: deal-in var(--dur) var(--ease) both;
+  will-change: transform, opacity;
 }
 
 .ghost {
@@ -141,18 +145,17 @@ body {
   max-width: 100%;
   height: var(--hero-h);
   border-radius: var(--radius-lg);
-  background: var(--color-paper);
   box-shadow: var(--shadow-card);
 }
 
 .ghost-1 {
-  z-index: 0;
+  z-index: 2;
   transform: rotate(1.5deg) translate(6px, 6px);
   background: var(--color-ghost-1);
 }
 
 .ghost-2 {
-  z-index: 0;
+  z-index: 1;
   transform: rotate(3deg) translate(12px, 12px);
   background: var(--color-ghost-2);
 }
@@ -173,77 +176,125 @@ body {
 }
 
 .pill-deck {
-  background: var(--color-paper);
-  color: var(--color-ink);
+  background: transparent;
+  color: rgba(255, 255, 255, 0.65);
+  border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 .pill-arch {
   background: transparent;
-  color: var(--color-paper);
-  border: 1px solid var(--color-gray);
+  color: rgba(255, 255, 255, 0.65);
+  border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 .prompt-text {
   margin: 0;
   flex: 1;
   font-weight: 700;
-  font-size: clamp(32px, 5vw, 46px);
-  line-height: 1.04;
+  font-size: clamp(28px, 5vw, 44px);
+  line-height: 1.06;
   letter-spacing: -0.02em;
 }
 
 .prompt-foot {
   display: flex;
   align-items: center;
-  opacity: 0.85;
 }
 
-.prompt-foot .brand-word {
+.prompt-brand {
   font-size: 0.8rem;
   font-weight: 600;
+  color: rgba(255, 255, 255, 0.5);
+  letter-spacing: -0.01em;
 }
 
 /* ============================= Hint card ============================= */
+/*
+  Positioning math:
+  - hero-w = 372px, hint-w = 300px, hint-tab = 64px
+  - peek state: translateX(372 - 300 + 64) = translateX(136px)
+    hint-card spans 136..436: behind prompt (136..372) + tab visible (372..436)
+  - open state: translateX(372 + 12) = translateX(384px)
+    hint-card spans 384..684: fully visible to right
+*/
 .hint-card {
   position: absolute;
-  top: 40px;
+  top: var(--space-4);
+  bottom: var(--space-4);
   left: 0;
-  z-index: 1;
+  z-index: 3;
   width: var(--hint-w);
-  max-width: 100%;
-  padding: var(--space-6) var(--space-4) var(--space-4);
   border-radius: var(--radius-md);
   background: var(--color-paper);
-  color: var(--color-ink);
   box-shadow: var(--shadow-card);
+  display: flex;
+  transform: translateX(calc(var(--hero-w) - var(--hint-w) + var(--hint-tab)));
+  transition: transform 180ms cubic-bezier(0.22, 0.61, 0.36, 1);
+  will-change: transform;
   cursor: pointer;
-  transform: translateX(0);
-  transition: transform var(--dur) var(--ease);
+  user-select: none;
 }
 
-.stage-group.open .hint-card {
-  transform: translateX(calc(var(--hero-w) - 100px));
+.hint-card.open {
+  transform: translateX(calc(var(--hero-w) + var(--space-3)));
 }
 
-.pill-hint {
-  position: absolute;
-  top: var(--space-3);
-  right: var(--space-3);
-  background: var(--color-ink);
-  color: var(--color-paper);
+.hint-body {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: var(--space-5) var(--space-4);
+  min-width: 0;
 }
 
-.hint-text {
-  margin: var(--space-2) 0 0;
+.hint-tab {
+  flex: none;
+  width: var(--hint-tab);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: var(--space-4) var(--space-2);
+}
+
+.hint-label {
+  font-size: 0.65rem;
   font-weight: 700;
-  font-size: 1.1rem;
-  letter-spacing: -0.01em;
-  opacity: 0;
-  transition: opacity var(--dur) var(--ease);
+  letter-spacing: 0.08em;
+  white-space: nowrap;
+  color: #767672;
+  border: 1px solid #b0b0ac;
+  padding: 0.3em 0.65em;
+  border-radius: var(--radius-pill);
 }
 
-.stage-group.open .hint-text {
-  opacity: 1;
+.hint-steps {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.hint-step {
+  display: flex;
+  gap: var(--space-2);
+  align-items: baseline;
+}
+
+.hint-num {
+  flex: none;
+  font-weight: 700;
+  font-size: 0.65rem;
+  color: var(--color-gray);
+  min-width: 0.9rem;
+}
+
+.hint-step-text {
+  font-size: 0.8rem;
+  font-weight: 500;
+  line-height: 1.45;
+  color: var(--color-ink);
 }
 
 /* ============================= Console ============================= */
@@ -252,6 +303,8 @@ body {
   align-items: center;
   gap: var(--space-3);
   flex-wrap: wrap;
+  align-self: center;
+  margin-top: var(--space-2);
 }
 
 .btn {
@@ -263,9 +316,10 @@ body {
 
 .btn-deal {
   padding: var(--space-2) var(--space-6);
-  border-radius: var(--radius-pill);
+  border-radius: var(--radius-md);
   background: var(--color-ink);
   color: var(--color-paper);
+  font-size: 0.9rem;
 }
 
 .stepper {
@@ -274,7 +328,7 @@ body {
   gap: var(--space-2);
   padding: var(--space-1) var(--space-2);
   border: 1px solid var(--color-ink);
-  border-radius: var(--radius-pill);
+  border-radius: var(--radius-md);
 }
 
 .step {
@@ -282,7 +336,7 @@ body {
   height: 1.75rem;
   border: none;
   background: transparent;
-  border-radius: var(--radius-pill);
+  border-radius: var(--radius-sm);
   font: inherit;
   font-size: 1.1rem;
   cursor: pointer;
@@ -300,6 +354,7 @@ body {
   font-variant-numeric: tabular-nums;
   font-weight: 600;
   color: var(--color-ink);
+  animation: tick-in 100ms ease-out both;
 }
 
 .step-value.danger {
@@ -315,10 +370,9 @@ body {
   width: 2.25rem;
   height: 2.25rem;
   border: 1px solid var(--color-ink);
-  border-radius: var(--radius-pill);
+  border-radius: var(--radius-sm);
   background: var(--color-paper);
   color: var(--color-ink);
-  font-size: 0.9rem;
   cursor: pointer;
   display: grid;
   place-items: center;
@@ -329,21 +383,26 @@ body {
   color: var(--color-paper);
 }
 
-/* ============================= Footer ============================= */
-.footer {
-  color: var(--color-gray);
-  font-size: 0.85rem;
-}
-
 /* ============================= Motion ============================= */
 @keyframes deal-in {
   from {
     opacity: 0;
-    transform: rotate(-4deg) translateY(14px);
+    transform: rotate(-1deg) translateY(10px);
   }
   to {
     opacity: 1;
     transform: rotate(-1deg) translateY(0);
+  }
+}
+
+@keyframes tick-in {
+  from {
+    opacity: 0;
+    transform: translateY(3px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
@@ -378,13 +437,20 @@ body {
 
   .hint-card {
     position: relative;
-    top: 0;
+    top: auto;
+    bottom: auto;
+    left: auto;
     width: 100%;
+    transform: none;
     margin-top: var(--space-4);
-    order: 2;
+    flex-direction: column;
   }
 
-  .stage-group.open .hint-card {
-    transform: translateX(0);
+  .hint-tab {
+    width: 100%;
+    border-left: none;
+    border-top: 1px solid rgba(10, 10, 10, 0.07);
+    flex-direction: row;
+    padding: var(--space-3) var(--space-4);
   }
 }

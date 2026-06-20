@@ -5,42 +5,45 @@ import {
   compatibleFeatureForCompany,
   growableMetrics,
 } from '../selectors'
-import { pickArchetypeId, type Bin } from './bin'
+import { pickArchetype, capFirst, type Bin } from './bin'
 
-const LABEL = '04 Grow'
-const HINT = 'AARRR'
+const LABEL = 'Grow'
+const HINT = [
+  'Define what the stage means for this product',
+  "Find the leak — why aren't users converting at this stage today?",
+  'Brainstorm fixes for that stage',
+  'Pick the highest-impact fix',
+  "Name the specific metric you'd move",
+]
 
-// Prefer AARRR-flagged metrics when any exist in the pool.
 function preferAarrr(metrics: Metric[]): Metric[] {
   const aarrr = metrics.filter((m) => m.aarrr === 'Y')
   return aarrr.length > 0 ? aarrr : metrics
 }
 
-// T4a: "Grow {metric} for {company}."
-function variantA(ctx: GenContext, archetypeId: string): Prompt {
+function variantA(ctx: GenContext, archetypeId: string, archetypeName: string): Prompt {
   const company = ctx.rng.pick(archetypeCompanies(ctx.data, archetypeId))
   const pool = preferAarrr(growableMetrics(ctx.data, archetypeId, 'product'))
   const metric = ctx.rng.pick(pool)
   return {
     bin: 'grow',
     label: LABEL,
-    archetype: archetypeId,
-    text: `Grow ${metric.metric_name} for ${company.company_name}.`,
+    archetype: archetypeName,
+    text: capFirst(`grow ${metric.metric_name.toLowerCase()} for ${company.company_name.toLowerCase()}.`),
     subject: company.company_name,
     hint: HINT,
   }
 }
 
-// T4b: "Grow {metric} for {company}'s {feature}."
-function variantB(ctx: GenContext, archetypeId: string): Prompt {
+function variantB(ctx: GenContext, archetypeId: string, archetypeName: string): Prompt {
   const company = ctx.rng.pick(archetypeCompanies(ctx.data, archetypeId))
   const feature = ctx.rng.pick(compatibleFeatureForCompany(ctx.data, company))
   const metric = ctx.rng.pick(growableMetrics(ctx.data, archetypeId, 'feature'))
   return {
     bin: 'grow',
     label: LABEL,
-    archetype: archetypeId,
-    text: `Grow ${metric.metric_name} for ${company.company_name}'s ${feature.feature_name}.`,
+    archetype: archetypeName,
+    text: capFirst(`grow ${metric.metric_name.toLowerCase()} for ${company.company_name.toLowerCase()}'s ${feature.feature_name.toLowerCase()}.`),
     subject: company.company_name,
     hint: HINT,
   }
@@ -51,9 +54,9 @@ export const grow: Bin = {
   label: LABEL,
   hint: HINT,
   generate(ctx) {
-    const archetypeId = pickArchetypeId(ctx)
+    const { id: archetypeId, name: archetypeName } = pickArchetype(ctx)
     return ctx.rng.next() < 0.5
-      ? variantA(ctx, archetypeId)
-      : variantB(ctx, archetypeId)
+      ? variantA(ctx, archetypeId, archetypeName)
+      : variantB(ctx, archetypeId, archetypeName)
   },
 }

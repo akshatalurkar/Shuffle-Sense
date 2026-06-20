@@ -13,6 +13,7 @@
   --space-2: 0.5rem;
   --space-3: 0.75rem;
   --space-4: 1rem;
+  --space-5: 1.25rem;
   --space-6: 1.5rem;
   --space-8: 2rem;
 
@@ -25,7 +26,8 @@
   /* Hero dimensions */
   --hero-w: 372px;
   --hero-h: 480px;
-  --hint-w: 290px;
+  --hint-w: 300px;
+  --hint-tab: 64px;
 
   /* Shadow */
   --shadow-hero: 0 30px 60px -15px rgba(10, 10, 10, 0.45);
@@ -33,5 +35,5 @@
 
   /* Motion */
   --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
-  --dur: 380ms;
+  --dur: 200ms;
 }

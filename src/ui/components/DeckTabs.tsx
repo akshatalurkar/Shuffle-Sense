@@ -7,17 +7,10 @@ interface DeckTabsProps {
   onSelect: (bin: BinId) => void
 }
 
-// Splits "01 Improve" into a muted number and a name.
-function parseLabel(label: string): [string, string] {
-  const idx = label.indexOf(' ')
-  return [label.slice(0, idx), label.slice(idx + 1)]
-}
-
 export function DeckTabs({ order, active, onSelect }: DeckTabsProps) {
   return (
     <div className="deck-tabs" role="tablist" aria-label="Question decks">
       {order.map((id) => {
-        const [num, name] = parseLabel(bins[id].label)
         const isActive = id === active
         return (
           <button
@@ -28,8 +21,7 @@ export function DeckTabs({ order, active, onSelect }: DeckTabsProps) {
             className={`tab${isActive ? ' tab-active' : ''}`}
             onClick={() => onSelect(id)}
           >
-            <span className="tab-num">{num}</span>
-            <span className="tab-name">{name}</span>
+            {bins[id].label}
           </button>
         )
       })}

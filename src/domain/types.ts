@@ -9,7 +9,7 @@ export interface Prompt {
   archetype: string
   text: string
   subject: string
-  hint: string
+  hint: string[]
 }
 
 export interface GenContext {

@@ -10,7 +10,6 @@ interface ConsoleProps {
   onStop: () => void
 }
 
-// Formats seconds as MM:SS.
 function clock(seconds: number): string {
   const m = Math.floor(seconds / 60)
   const s = seconds % 60
@@ -19,18 +18,35 @@ function clock(seconds: number): string {
 
 const RUNNING = new Set<TimerState['phase']>(['live', 'paused', 'time'])
 
-export function Console({
-  timer,
-  minutes,
-  onDeal,
-  onStep,
-  onPlay,
-  onPause,
-  onStop,
-}: ConsoleProps) {
+function PlayIcon() {
+  return (
+    <svg width="9" height="11" viewBox="0 0 9 11" fill="currentColor" aria-hidden="true">
+      <path d="M1 0.5 L8.5 5.5 L1 10.5 Z" />
+    </svg>
+  )
+}
+
+function PauseIcon() {
+  return (
+    <svg width="10" height="11" viewBox="0 0 10 11" fill="currentColor" aria-hidden="true">
+      <rect x="1" y="0.5" width="3" height="10" rx="1" />
+      <rect x="6" y="0.5" width="3" height="10" rx="1" />
+    </svg>
+  )
+}
+
+function StopIcon() {
+  return (
+    <svg width="10" height="10" viewBox="0 0 10 10" fill="currentColor" aria-hidden="true">
+      <rect x="0" y="0" width="10" height="10" rx="1" />
+    </svg>
+  )
+}
+
+export function Console({ timer, minutes, onDeal, onStep, onPlay, onPause, onStop }: ConsoleProps) {
   const running = RUNNING.has(timer.phase)
   const danger = timer.phase === 'live' && timer.remainingSeconds <= 60
-  const display = running ? clock(timer.remainingSeconds) : `${minutes} / min`
+  const display = running ? clock(timer.remainingSeconds) : `${minutes} mins`
   const playing = timer.phase === 'live'
 
   return (
@@ -49,7 +65,7 @@ export function Console({
         >
           −
         </button>
-        <span className={`step-value${danger ? ' danger' : ''}`} aria-live="polite">
+        <span key={display} className={`step-value${danger ? ' danger' : ''}`} aria-live="polite">
           {display}
         </span>
         <button
@@ -70,23 +86,13 @@ export function Console({
           aria-label="Play"
           onClick={onPlay}
         >
-          ▶
+          <PlayIcon />
         </button>
-        <button
-          type="button"
-          className="btn-icon"
-          aria-label="Pause"
-          onClick={onPause}
-        >
-          ⏸
+        <button type="button" className="btn-icon" aria-label="Pause" onClick={onPause}>
+          <PauseIcon />
         </button>
-        <button
-          type="button"
-          className="btn-icon"
-          aria-label="Stop"
-          onClick={onStop}
-        >
-          ■
+        <button type="button" className="btn-icon" aria-label="Stop" onClick={onStop}>
+          <StopIcon />
         </button>
       </div>
     </div>

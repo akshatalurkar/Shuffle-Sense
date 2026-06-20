@@ -1,4 +1,3 @@
-import { BrandMark } from './BrandMark'
 import type { Prompt } from '../../domain/types'
 
 interface PromptCardProps {
@@ -6,9 +5,8 @@ interface PromptCardProps {
   dealKey: number
 }
 
-const PLACEHOLDER = 'Press Deal to draw a prompt.'
+const PLACEHOLDER = 'press deal to draw a prompt.'
 
-// The hero card: deck/archetype pills, question text, footer mark.
 export function PromptCard({ prompt, dealKey }: PromptCardProps) {
   return (
     <article className="prompt-card" key={dealKey}>
@@ -18,7 +16,7 @@ export function PromptCard({ prompt, dealKey }: PromptCardProps) {
       </div>
       <p className="prompt-text">{prompt?.text ?? PLACEHOLDER}</p>
       <div className="prompt-foot">
-        <BrandMark size={20} />
+        <span className="prompt-brand">Shuffle Sense</span>
       </div>
     </article>
   )

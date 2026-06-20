@@ -3,7 +3,6 @@ import { BrandMark } from './ui/components/BrandMark'
 import { DeckTabs } from './ui/components/DeckTabs'
 import { StageGroup } from './ui/components/StageGroup'
 import { Console } from './ui/components/Console'
-import { Footer } from './ui/components/Footer'
 import { useDeck } from './ui/hooks/useDeck'
 import { useTimer } from './ui/hooks/useTimer'
 
@@ -33,6 +32,8 @@ export default function App() {
     else timer.start()
   }, [timer])
 
+  const toggleHint = useCallback(() => setHintOpen((o) => !o), [])
+
   return (
     <main className="app">
       <BrandMark />
@@ -41,7 +42,7 @@ export default function App() {
         prompt={deck.prompt}
         dealKey={dealKey}
         hintOpen={hintOpen}
-        onToggleHint={() => setHintOpen((o) => !o)}
+        onToggleHint={toggleHint}
       />
       <Console
         timer={timer.state}
@@ -52,7 +53,6 @@ export default function App() {
         onPause={timer.pause}
         onStop={timer.stop}
       />
-      <Footer />
     </main>
   )
 }
