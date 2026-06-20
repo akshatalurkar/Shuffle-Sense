@@ -1,0 +1,44 @@
+@import 'tailwindcss';
+@import './ui/theme/tokens.css';
+
+/* ============================= Base ============================= */
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  background: var(--color-table);
+  color: var(--color-ink);
+  font-family: -apple-system, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+#root {
+  width: 100%;
+  display: flex;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-ink);
+  outline-offset: 2px;
+}
+
+/* ============================= App shell ============================= */
+.app {
+  width: min(700px, 100%);
+  margin: auto;
+  padding: var(--space-8) var(--space-4);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-6);
+}
