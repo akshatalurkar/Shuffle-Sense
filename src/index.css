@@ -42,3 +42,349 @@ body {
   align-items: flex-start;
   gap: var(--space-6);
 }
+
+/* ============================= Brand ============================= */
+.brand {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.brand-mark {
+  display: grid;
+  place-items: center;
+  background: var(--color-ink);
+  border-radius: var(--radius-sm);
+  flex: none;
+}
+
+.brand-mark-inner {
+  width: 38%;
+  height: 38%;
+  background: var(--color-paper);
+  border-radius: 3px;
+}
+
+.brand-word {
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+/* ============================= Deck tabs ============================= */
+.deck-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35em;
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--color-ink);
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font: inherit;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.tab-active {
+  background: var(--color-ink);
+  color: var(--color-paper);
+  border-color: var(--color-ink);
+}
+
+.tab-num {
+  color: var(--color-gray);
+}
+
+.tab-active .tab-num {
+  color: var(--color-gray);
+}
+
+/* ============================= Stage ============================= */
+.stage-group {
+  position: relative;
+  width: var(--hero-w);
+  max-width: 100%;
+  height: var(--hero-h);
+  margin-top: var(--space-2);
+}
+
+.prompt-card {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  width: var(--hero-w);
+  max-width: 100%;
+  height: var(--hero-h);
+  padding: var(--space-6);
+  border-radius: var(--radius-lg);
+  background: var(--color-ink);
+  color: var(--color-paper);
+  transform: rotate(-1deg);
+  box-shadow: var(--shadow-hero);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  animation: deal-in var(--dur) var(--ease) both;
+}
+
+.ghost {
+  position: absolute;
+  inset: 0;
+  width: var(--hero-w);
+  max-width: 100%;
+  height: var(--hero-h);
+  border-radius: var(--radius-lg);
+  background: var(--color-paper);
+  box-shadow: var(--shadow-card);
+}
+
+.ghost-1 {
+  z-index: 0;
+  transform: rotate(1.5deg) translate(6px, 6px);
+  background: var(--color-ghost-1);
+}
+
+.ghost-2 {
+  z-index: 0;
+  transform: rotate(3deg) translate(12px, 12px);
+  background: var(--color-ghost-2);
+}
+
+.prompt-pills {
+  display: flex;
+  gap: var(--space-2);
+}
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25em 0.75em;
+  border-radius: var(--radius-pill);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.pill-deck {
+  background: var(--color-paper);
+  color: var(--color-ink);
+}
+
+.pill-arch {
+  background: transparent;
+  color: var(--color-paper);
+  border: 1px solid var(--color-gray);
+}
+
+.prompt-text {
+  margin: 0;
+  flex: 1;
+  font-weight: 700;
+  font-size: clamp(32px, 5vw, 46px);
+  line-height: 1.04;
+  letter-spacing: -0.02em;
+}
+
+.prompt-foot {
+  display: flex;
+  align-items: center;
+  opacity: 0.85;
+}
+
+.prompt-foot .brand-word {
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+/* ============================= Hint card ============================= */
+.hint-card {
+  position: absolute;
+  top: 40px;
+  left: 0;
+  z-index: 1;
+  width: var(--hint-w);
+  max-width: 100%;
+  padding: var(--space-6) var(--space-4) var(--space-4);
+  border-radius: var(--radius-md);
+  background: var(--color-paper);
+  color: var(--color-ink);
+  box-shadow: var(--shadow-card);
+  cursor: pointer;
+  transform: translateX(0);
+  transition: transform var(--dur) var(--ease);
+}
+
+.stage-group.open .hint-card {
+  transform: translateX(calc(var(--hero-w) - 100px));
+}
+
+.pill-hint {
+  position: absolute;
+  top: var(--space-3);
+  right: var(--space-3);
+  background: var(--color-ink);
+  color: var(--color-paper);
+}
+
+.hint-text {
+  margin: var(--space-2) 0 0;
+  font-weight: 700;
+  font-size: 1.1rem;
+  letter-spacing: -0.01em;
+  opacity: 0;
+  transition: opacity var(--dur) var(--ease);
+}
+
+.stage-group.open .hint-text {
+  opacity: 1;
+}
+
+/* ============================= Console ============================= */
+.console {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+}
+
+.btn {
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+}
+
+.btn-deal {
+  padding: var(--space-2) var(--space-6);
+  border-radius: var(--radius-pill);
+  background: var(--color-ink);
+  color: var(--color-paper);
+}
+
+.stepper {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-1) var(--space-2);
+  border: 1px solid var(--color-ink);
+  border-radius: var(--radius-pill);
+}
+
+.step {
+  width: 1.75rem;
+  height: 1.75rem;
+  border: none;
+  background: transparent;
+  border-radius: var(--radius-pill);
+  font: inherit;
+  font-size: 1.1rem;
+  cursor: pointer;
+  color: var(--color-ink);
+}
+
+.step:disabled {
+  color: var(--color-gray);
+  cursor: not-allowed;
+}
+
+.step-value {
+  min-width: 4.5rem;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+  color: var(--color-ink);
+}
+
+.step-value.danger {
+  color: var(--color-red);
+}
+
+.transport {
+  display: inline-flex;
+  gap: var(--space-2);
+}
+
+.btn-icon {
+  width: 2.25rem;
+  height: 2.25rem;
+  border: 1px solid var(--color-ink);
+  border-radius: var(--radius-pill);
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-size: 0.9rem;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+}
+
+.btn-icon.active {
+  background: var(--color-ink);
+  color: var(--color-paper);
+}
+
+/* ============================= Footer ============================= */
+.footer {
+  color: var(--color-gray);
+  font-size: 0.85rem;
+}
+
+/* ============================= Motion ============================= */
+@keyframes deal-in {
+  from {
+    opacity: 0;
+    transform: rotate(-4deg) translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: rotate(-1deg) translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+/* ============================= Mobile ============================= */
+@media (max-width: 520px) {
+  .stage-group {
+    width: 100%;
+    height: auto;
+  }
+
+  .prompt-card,
+  .ghost {
+    position: relative;
+    width: 100%;
+    height: var(--hero-h);
+    transform: none;
+  }
+
+  .ghost {
+    display: none;
+  }
+
+  .hint-card {
+    position: relative;
+    top: 0;
+    width: 100%;
+    margin-top: var(--space-4);
+    order: 2;
+  }
+
+  .stage-group.open .hint-card {
+    transform: translateX(0);
+  }
+}

@@ -14,20 +14,20 @@ export interface DeckApi {
 }
 
 // Owns the seedable rng and current deck state; pure logic lives in domain/.
-export function useDeck(seed = Date.now()): DeckApi {
-  const rngRef = useRef<Rng>(makeRng(seed))
+export function useDeck(seed?: number): DeckApi {
+  const [rng] = useState<Rng>(() => makeRng(seed ?? Date.now()))
   const lastSubjectRef = useRef<string | undefined>(undefined)
   const [bin, setBin] = useState<BinId>('improve')
   const [prompt, setPrompt] = useState<Prompt | null>(null)
 
   const dealBin = useCallback((target: BinId) => {
     const next = generate(
-      { data: dataset, rng: rngRef.current, lastSubject: lastSubjectRef.current },
+      { data: dataset, rng, lastSubject: lastSubjectRef.current },
       target,
     )
     lastSubjectRef.current = next.subject
     setPrompt(next)
-  }, [])
+  }, [rng])
 
   const selectBin = useCallback(
     (target: BinId) => {
