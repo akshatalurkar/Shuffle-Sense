@@ -1,3 +1,4 @@
+// The logo in the top left, a black square with a white square inside it.
 interface BrandMarkProps {
   size?: number
   showWordmark?: boolean

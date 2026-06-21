@@ -1,3 +1,4 @@
+// Hooks the timer state machine up to React so it ticks on an interval.
 import { useCallback, useEffect, useState } from 'react'
 import {
   makeTimer,

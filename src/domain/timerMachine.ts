@@ -1,4 +1,4 @@
-// Pure timer state machine. No timers, no side effects — caller drives tick().
+// All the timer logic as plain functions with no side effects.
 
 export interface TimerState {
   phase: 'standby' | 'live' | 'paused' | 'time'

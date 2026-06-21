@@ -1,3 +1,4 @@
+// Generates a prompt for the active bin, trying not to repeat the last one.
 import type { BinId, GenContext, Prompt } from './types'
 import { bins } from './bins'
 

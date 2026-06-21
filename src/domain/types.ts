@@ -1,3 +1,4 @@
+// The core types used across the whole app: BinId, Prompt, and GenContext.
 import type { Dataset } from '../data/schema'
 import type { Rng } from './rng'
 

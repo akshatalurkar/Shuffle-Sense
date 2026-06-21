@@ -1,3 +1,4 @@
+// Manages which bin is active, deals prompts, and keeps track of recent history.
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { dataset } from '../../data/dataset'
 import { makeRng, type Rng } from '../../domain/rng'
@@ -49,7 +50,7 @@ export function useDeck(seed?: number): DeckApi {
       setPrompt(current)
       setNextPrompt(upcoming)
       setDealtCount((c) => c + 1)
-      setRecentPrompts((prev) => [current, ...prev].slice(0, 5))
+      setRecentPrompts((prev) => [current, ...prev].slice(0, 3))
     },
     [rng],
   )

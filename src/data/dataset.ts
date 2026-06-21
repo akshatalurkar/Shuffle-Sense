@@ -1,3 +1,4 @@
+// Loads the compiled dataset JSON and validates it once so the rest of the app can trust it.
 import datasetJson from './dataset.json'
 import { DatasetSchema, type Dataset } from './schema'
 

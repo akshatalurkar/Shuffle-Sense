@@ -1,3 +1,4 @@
+// Makes sure the timer moves through all its phases correctly.
 import { describe, it, expect } from 'vitest'
 import {
   makeTimer,
@@ -7,7 +8,7 @@ import {
   stop,
   tick,
   setDuration,
-} from '../src/session/timerMachine'
+} from '../src/domain/timerMachine'
 
 describe('timerMachine', () => {
   it('start: standby -> live', () => {

@@ -1,3 +1,4 @@
+// Shows the last few prompts you were dealt so you can remember what you practiced.
 import type { Prompt } from '../../domain/types'
 
 interface RecentPromptsPanelProps {

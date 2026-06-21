@@ -1,3 +1,4 @@
+// Shows how many cards you've dealt, how long you've been practicing, and which bin is active.
 interface SessionPanelProps {
   dealtCount: number
   elapsed: number

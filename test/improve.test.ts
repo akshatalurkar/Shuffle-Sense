@@ -1,3 +1,4 @@
+// Checks that the improve bin always produces valid, well-formed prompts.
 import { describe, it, expect } from 'vitest'
 import { dataset } from '../src/data/dataset'
 import { makeRng } from '../src/domain/rng'

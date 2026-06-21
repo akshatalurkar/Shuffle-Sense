@@ -1,3 +1,4 @@
+// Bundles all five bins into one registry so the rest of the app can grab any by ID.
 import type { BinId } from '../types'
 import type { Bin } from './bin'
 import { improve } from './improve'

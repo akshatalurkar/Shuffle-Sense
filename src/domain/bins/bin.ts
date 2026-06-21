@@ -1,3 +1,4 @@
+// The shared Bin interface and a couple of small helpers all five bins use.
 import type { BinId, GenContext, Prompt } from '../types'
 
 export interface Bin {

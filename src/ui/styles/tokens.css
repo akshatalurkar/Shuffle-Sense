@@ -1,3 +1,4 @@
+/* Design tokens: colors, spacing, sizing, and anything else shared across the app. */
 :root {
   /* Palette */
   --color-table: #e6e6e2;

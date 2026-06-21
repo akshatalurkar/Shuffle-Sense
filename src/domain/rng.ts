@@ -1,4 +1,4 @@
-// Seedable PRNG (mulberry32). All randomness in the app flows through this.
+// A seedable random number generator so prompt picks are reproducible.
 
 export type Rng = {
   next(): number

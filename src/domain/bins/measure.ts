@@ -1,3 +1,4 @@
+// Generates "define success metrics for X on Y" prompts.
 import { pickArchetype, capFirst, type Bin } from './bin'
 import { archetypeCompanies, compatibleFeatureForCompany } from '../selectors'
 

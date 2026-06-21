@@ -1,4 +1,5 @@
-import type { TimerState } from '../../session/timerMachine'
+// The bottom bar with the deal button, timer display, and play/pause/stop controls.
+import type { TimerState } from '../../domain/timerMachine'
 
 interface ConsoleProps {
   timer: TimerState
@@ -46,7 +47,7 @@ function StopIcon() {
 export function Console({ timer, minutes, onDeal, onStep, onPlay, onPause, onStop }: ConsoleProps) {
   const running = RUNNING.has(timer.phase)
   const danger = timer.phase === 'live' && timer.remainingSeconds <= 60
-  const display = running ? clock(timer.remainingSeconds) : `${minutes} mins`
+  const numDisplay = running ? clock(timer.remainingSeconds) : String(minutes)
   const playing = timer.phase === 'live'
 
   return (
@@ -65,8 +66,9 @@ export function Console({ timer, minutes, onDeal, onStep, onPlay, onPause, onSto
         >
           −
         </button>
-        <span key={display} className={`step-value${danger ? ' danger' : ''}`} aria-live="polite">
-          {display}
+        <span className={`step-value${danger ? ' danger' : ''}`} aria-live="polite">
+          <span key={numDisplay} className="step-num">{numDisplay}</span>
+          {!running && <span className="step-suffix">mins</span>}
         </span>
         <button
           type="button"

@@ -1,3 +1,4 @@
+// Generates "grow metric X for product/feature Y" prompts.
 import type { GenContext, Prompt } from '../types'
 import type { Metric } from '../../data/schema'
 import {

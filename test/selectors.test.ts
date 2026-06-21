@@ -1,3 +1,4 @@
+// Makes sure the dataset query helpers return the right rows.
 import { describe, it, expect } from 'vitest'
 import { dataset } from '../src/data/dataset'
 import {

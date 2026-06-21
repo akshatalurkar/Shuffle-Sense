@@ -1,3 +1,4 @@
+// Helper functions for pulling the right companies, features, and metrics out of the dataset.
 import type {
   Company,
   Dataset,

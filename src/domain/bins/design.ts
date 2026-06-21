@@ -1,3 +1,4 @@
+// Generates "design X for Y" prompts using products, features, and segments.
 import type { GenContext, Prompt } from '../types'
 import {
   archetypeCompanies,

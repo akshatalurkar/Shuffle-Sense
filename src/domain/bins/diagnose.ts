@@ -1,3 +1,4 @@
+// Generates "metric X dropped Y%, where do you look?" prompts.
 import { pickArchetype, capFirst, type Bin } from './bin'
 import { archetypeCompanies, archetypeMetrics } from '../selectors'
 

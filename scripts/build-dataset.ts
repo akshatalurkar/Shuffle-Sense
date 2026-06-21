@@ -1,3 +1,4 @@
+// Reads the source spreadsheet, validates everything, and spits out dataset.json.
 import { readFileSync, writeFileSync } from 'node:fs'
 import { fileURLToPath } from 'node:url'
 import { dirname, resolve } from 'node:path'

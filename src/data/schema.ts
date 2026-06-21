@@ -1,3 +1,4 @@
+// Describes the shape of every entity in the dataset so bad data gets caught early.
 import { z } from 'zod'
 
 // Each schema mirrors a sheet's columns from the source xlsx exactly.

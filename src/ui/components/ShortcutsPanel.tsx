@@ -1,3 +1,4 @@
+// Lists the keyboard shortcuts so you can keep your hands off the mouse.
 const SHORTCUTS = [
   { label: 'Deal card', key: 'Space' },
   { label: 'Show hint', key: 'H' },

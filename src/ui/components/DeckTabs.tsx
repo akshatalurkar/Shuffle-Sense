@@ -1,3 +1,4 @@
+// The row of tabs for switching between the five question bins.
 import type { BinId } from '../../domain/types'
 import { bins } from '../../domain/bins'
 

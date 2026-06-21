@@ -1,3 +1,4 @@
+// Peeks at what the next prompt will be before you deal it.
 import type { Prompt } from '../../domain/types'
 
 interface NextUpPanelProps {

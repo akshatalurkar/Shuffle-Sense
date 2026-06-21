@@ -1,3 +1,4 @@
+// Generates "improve X for Y" prompts using real companies and features.
 import type { GenContext, Prompt } from '../types'
 import {
   archetypeCompanies,
@@ -14,7 +15,7 @@ const HINT = [
   'Cut through prioritization',
   'List solutions',
   'Evaluate trade-offs',
-  'Summarise',
+  'Summarize',
 ]
 
 function variantA(ctx: GenContext, archetypeId: string, archetypeName: string): Prompt {

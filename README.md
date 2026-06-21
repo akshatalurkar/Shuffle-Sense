@@ -6,11 +6,11 @@ Shuffle Sense is a product management interview trainer for the browser. It deal
 
 The five bins are:
 
-- **Improve** — improve a feature for a company, or a company for a segment
-- **Design** — design a product for a segment or archetype
-- **Measure** — define the metrics for a product or feature
-- **Grow** — build a growth strategy for a product
-- **Diagnose** — diagnose a metric problem
+- **Improve**: improve a feature for a company, or a company for a segment
+- **Design**: design a product for a segment or archetype
+- **Measure**: define the metrics for a product or feature
+- **Grow**: build a growth strategy for a product
+- **Diagnose**: diagnose a metric problem
 
 Keyboard shortcuts keep you hands-on-keyboard: **Space** deals, **H** toggles the hint, **P** plays the timer, **S** stops it.
 
@@ -101,7 +101,7 @@ The codebase maps onto the pipeline stages.
 
 `src/session/timerMachine.ts` is the pure timer state machine, cycling through `standby`, `live`, `paused`, and `time`.
 
-`src/ui` is the presentation layer. `components/` holds the React components (BrandMark, DeckTabs, StageGroup, Console, SessionPanel, RecentPromptsPanel, HowToPlayPanel, ShortcutsPanel, NextUpPanel, PromptCard, HintCard, Footer). `hooks/useDeck.ts` owns deck state — bin selection, prompt generation, deal, and recent prompts. `hooks/useTimer.ts` drives the timer machine. `theme/tokens.css` holds the CSS design tokens.
+`src/ui` is the presentation layer. `components/` holds the React components (BrandMark, DeckTabs, StageGroup, Console, SessionPanel, RecentPromptsPanel, HowToPlayPanel, ShortcutsPanel, NextUpPanel, PromptCard, HintCard, Footer). `hooks/useDeck.ts` owns deck state: bin selection, prompt generation, deal, and recent prompts. `hooks/useTimer.ts` drives the timer machine. `styles/tokens.css` holds the CSS design tokens.
 
 `scripts/build-dataset.ts` is the offline data build. It reads the source `.xlsx`, validates it with Zod, and writes `dataset.json`.
 
