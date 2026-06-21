@@ -1,8 +1,8 @@
-# shuffle-sense
+# Shuffle Sense
 
 ## About the Project
 
-shuffle-sense is a product management interview trainer for the browser. It deals you random PM prompts across five practice bins, optionally reveals a structured hint framework, and times your response with a configurable countdown. Deal a card, talk through it under the clock, and reps add up fast.
+Shuffle Sense is a product management interview trainer for the browser. It deals you random PM prompts across five practice bins, optionally reveals a structured hint framework, and times your response with a configurable countdown. Deal a card, talk through it under the clock, and reps add up fast.
 
 The five bins are:
 
@@ -25,7 +25,7 @@ Keyboard shortcuts keep you hands-on-keyboard: **Space** deals, **H** toggles th
 
 ## How It Works
 
-shuffle-sense runs a four-stage pipeline every time you deal a card.
+Shuffle Sense runs a four-stage pipeline every time you deal a card.
 
 1. **Select**
 
@@ -118,8 +118,8 @@ The codebase maps onto the pipeline stages.
 
 1. Clone the repo
    ```sh
-   git clone https://github.com/aalurkar/shuffle-sense.git
-   cd shuffle-sense
+   git clone https://github.com/aalurkar/Shuffle Sense.git
+   cd Shuffle Sense
    ```
 
 2. Install dependencies
@@ -144,7 +144,7 @@ The codebase maps onto the pipeline stages.
 
 ## Deployment
 
-shuffle-sense is a static site, so deployment is a build and a serve.
+Shuffle Sense is a static site, so deployment is a build and a serve.
 
 1. Build the production bundle
    ```sh
