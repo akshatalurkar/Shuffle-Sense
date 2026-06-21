@@ -3,7 +3,7 @@ import { archetypeCompanies, compatibleFeatureForCompany } from '../selectors'
 
 const LABEL = 'Measure'
 const HINT = [
-  "Identify the feature's goal — what outcome does it exist to drive?",
+  "Identify the feature's goal: what outcome does it exist to drive?",
   'Trace the user journey and pick a metric at each stage: discovery, adoption, engagement, retention',
   'Choose one north star metric from those',
   "Add guardrail metrics so the north star can't be gamed",

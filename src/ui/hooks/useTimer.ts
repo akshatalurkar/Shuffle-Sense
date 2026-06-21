@@ -8,7 +8,7 @@ import {
   stop,
   tick,
   type TimerState,
-} from '../../session/timerMachine'
+} from '../../domain/timerMachine'
 
 export interface TimerApi {
   state: TimerState

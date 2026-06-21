@@ -13,8 +13,6 @@ export function StageGroup({ prompt, dealKey, hintOpen, onToggleHint }: StageGro
   return (
     <div className={`stage-group${hintOpen ? ' open' : ''}`}>
       <HintCard hint={prompt?.hint ?? []} open={hintOpen} onToggle={onToggleHint} />
-      <div className="ghost ghost-2" aria-hidden="true" />
-      <div className="ghost ghost-1" aria-hidden="true" />
       <PromptCard prompt={prompt} dealKey={dealKey} />
     </div>
   )

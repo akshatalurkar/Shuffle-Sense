@@ -3,9 +3,9 @@ import { archetypeCompanies, archetypeMetrics } from '../selectors'
 
 const LABEL = 'Diagnose'
 const HINT = [
-  'Check internal causes — did we change something?',
-  'Check external causes — did the world change?',
-  "Narrow it down — slice the metric by platform, region, or new vs. existing users to see where it's concentrated",
+  'Check internal causes: did we change something?',
+  'Check external causes: did the world change?',
+  "Narrow it down: slice the metric by platform, region, or new vs. existing users to see where it's concentrated",
   "Form your hypotheses, and say what data you'd pull to test each",
 ]
 

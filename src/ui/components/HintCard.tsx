@@ -25,14 +25,18 @@ export function HintCard({ hint, open, onToggle }: HintCardProps) {
       onKeyDown={onKeyDown}
     >
       <div className="hint-body">
-        <ol className="hint-steps">
-          {hint.map((step, i) => (
-            <li key={i} className="hint-step">
-              <span className="hint-num">{i + 1}</span>
-              <span className="hint-step-text">{step}</span>
-            </li>
-          ))}
-        </ol>
+        {hint.length === 0 ? (
+          <p className="hint-empty">no hints here :)</p>
+        ) : (
+          <ol className="hint-steps">
+            {hint.map((step, i) => (
+              <li key={i} className="hint-step">
+                <span className="hint-num">{i + 1}</span>
+                <span className="hint-step-text">{step}</span>
+              </li>
+            ))}
+          </ol>
+        )}
       </div>
       <div className="hint-tab">
         <span className="hint-label">Hint</span>

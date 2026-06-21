@@ -10,7 +10,7 @@ import { pickArchetype, capFirst, type Bin } from './bin'
 const LABEL = 'Grow'
 const HINT = [
   'Define what the stage means for this product',
-  "Find the leak — why aren't users converting at this stage today?",
+  "Find the leak: why aren't users converting at this stage today?",
   'Brainstorm fixes for that stage',
   'Pick the highest-impact fix',
   "Name the specific metric you'd move",
