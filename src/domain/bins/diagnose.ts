@@ -3,7 +3,8 @@ import { pickArchetype, capFirst, type Bin } from './bin'
 import { archetypeCompanies, archetypeMetrics } from '../selectors'
 
 const LABEL = 'Diagnose'
-const HINT = [
+const HINT = 'Internal vs. External'
+const STEPS = [
   'Check internal causes: did we change something?',
   'Check external causes: did the world change?',
   "Narrow it down: slice the metric by platform, region, or new vs. existing users to see where it's concentrated",
@@ -14,6 +15,7 @@ export const diagnose: Bin = {
   id: 'diagnose',
   label: LABEL,
   hint: HINT,
+  steps: STEPS,
   generate(ctx) {
     const { id: archetypeId, name: archetypeName } = pickArchetype(ctx)
     const company = ctx.rng.pick(archetypeCompanies(ctx.data, archetypeId))
@@ -23,9 +25,10 @@ export const diagnose: Bin = {
       bin: 'diagnose',
       label: LABEL,
       archetype: archetypeName,
-      text: capFirst(`${company.company_name.toLowerCase()}'s ${metric.metric_name.toLowerCase()} ${metric.direction_bad} ${pct}%. Where do you look?`),
+      text: capFirst(`${company.company_name}'s ${metric.metric_name} ${metric.direction_bad} ${pct}%. Where do you look?`),
       subject: company.company_name,
       hint: HINT,
+      steps: STEPS,
     }
   },
 }

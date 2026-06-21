@@ -9,14 +9,15 @@ import {
 import { pickArchetype, capFirst, type Bin } from './bin'
 
 const LABEL = 'Design'
-const HINT = [
+const HINT = 'CIRCLES'
+const STEPS = [
   'Comprehend the situation',
   'Identify the user',
   'Report their needs',
   'Cut through prioritization',
   'List solutions',
   'Evaluate trade-offs',
-  'Summarise',
+  'Summarize',
 ]
 
 function variantA(ctx: GenContext, archetypeId: string, archetypeName: string): Prompt {
@@ -26,9 +27,10 @@ function variantA(ctx: GenContext, archetypeId: string, archetypeName: string): 
     bin: 'design',
     label: LABEL,
     archetype: archetypeName,
-    text: capFirst(`design ${product.generic_product.toLowerCase()} for ${segment.segment_name.toLowerCase()}.`),
+    text: capFirst(`design ${product.generic_product} for ${segment.segment_name}.`),
     subject: product.generic_product,
     hint: HINT,
+    steps: STEPS,
   }
 }
 
@@ -40,9 +42,10 @@ function variantB(ctx: GenContext, archetypeId: string, archetypeName: string): 
     bin: 'design',
     label: LABEL,
     archetype: archetypeName,
-    text: capFirst(`design ${company.company_name.toLowerCase()}'s ${feature.feature_name.toLowerCase()} for ${segment.segment_name.toLowerCase()}.`),
+    text: capFirst(`design ${company.company_name}'s ${feature.feature_name} for ${segment.segment_name}.`),
     subject: company.company_name,
     hint: HINT,
+    steps: STEPS,
   }
 }
 
@@ -50,6 +53,7 @@ export const design: Bin = {
   id: 'design',
   label: LABEL,
   hint: HINT,
+  steps: STEPS,
   generate(ctx) {
     const { id: archetypeId, name: archetypeName } = pickArchetype(ctx)
     return ctx.rng.next() < 0.5

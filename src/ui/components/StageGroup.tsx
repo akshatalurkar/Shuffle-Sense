@@ -13,7 +13,12 @@ interface StageGroupProps {
 export function StageGroup({ prompt, dealKey, hintOpen, onToggleHint }: StageGroupProps) {
   return (
     <div key={dealKey} className={`stage-group${hintOpen ? ' open' : ''}`}>
-      <HintCard hint={prompt?.hint ?? []} open={hintOpen} onToggle={onToggleHint} bin={prompt?.bin} />
+      <HintCard
+        framework={prompt?.hint}
+        steps={prompt?.steps ?? []}
+        open={hintOpen}
+        onToggle={onToggleHint}
+      />
       <PromptCard prompt={prompt} />
     </div>
   )

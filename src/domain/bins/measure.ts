@@ -3,7 +3,8 @@ import { pickArchetype, capFirst, type Bin } from './bin'
 import { archetypeCompanies, compatibleFeatureForCompany } from '../selectors'
 
 const LABEL = 'Measure'
-const HINT = [
+const HINT = 'Goal → Signal → Metric'
+const STEPS = [
   "Identify the feature's goal: what outcome does it exist to drive?",
   'Trace the user journey and pick a metric at each stage: discovery, adoption, engagement, retention',
   'Choose one north star metric from those',
@@ -14,6 +15,7 @@ export const measure: Bin = {
   id: 'measure',
   label: LABEL,
   hint: HINT,
+  steps: STEPS,
   generate(ctx) {
     const { id: archetypeId, name: archetypeName } = pickArchetype(ctx)
     const company = ctx.rng.pick(archetypeCompanies(ctx.data, archetypeId))
@@ -22,9 +24,10 @@ export const measure: Bin = {
       bin: 'measure',
       label: LABEL,
       archetype: archetypeName,
-      text: capFirst(`define the success metrics for ${feature.feature_name.toLowerCase()} on ${company.company_name.toLowerCase()}.`),
+      text: capFirst(`define the success metrics for ${feature.feature_name} on ${company.company_name}.`),
       subject: company.company_name,
       hint: HINT,
+      steps: STEPS,
     }
   },
 }

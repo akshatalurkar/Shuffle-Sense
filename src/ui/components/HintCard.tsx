@@ -1,16 +1,16 @@
 // The card that slides out from behind the prompt when you want a hint.
 import type { KeyboardEvent } from 'react'
-import type { BinId } from '../../domain/types'
 
 interface HintCardProps {
-  hint: string[]
+  // The named framework that guides the answer (e.g. 'CIRCLES').
+  framework?: string
+  // The ordered steps of that framework.
+  steps: string[]
   open: boolean
   onToggle: () => void
-  bin?: BinId
 }
 
-export function HintCard({ hint, open, onToggle, bin }: HintCardProps) {
-  const showCircles = bin === 'improve' || bin === 'design'
+export function HintCard({ framework, steps, open, onToggle }: HintCardProps) {
   function onKeyDown(e: KeyboardEvent<HTMLDivElement>) {
     if (e.key === 'Enter' || e.key === ' ') {
       e.preventDefault()
@@ -29,13 +29,13 @@ export function HintCard({ hint, open, onToggle, bin }: HintCardProps) {
       onKeyDown={onKeyDown}
     >
       <div className="hint-body">
-        {hint.length === 0 ? (
+        {steps.length === 0 ? (
           <p className="hint-empty">no hints here :)</p>
         ) : (
           <>
-            {showCircles && <p className="hint-framework-label">CIRCLES:</p>}
+            {framework && <p className="hint-framework-label">{framework}</p>}
             <ol className="hint-steps">
-              {hint.map((step, i) => (
+              {steps.map((step, i) => (
                 <li key={i} className="hint-step">
                   <span className="hint-num">{i + 1}</span>
                   <span className="hint-step-text">{step}</span>

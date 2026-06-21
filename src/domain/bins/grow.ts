@@ -9,7 +9,8 @@ import {
 import { pickArchetype, capFirst, type Bin } from './bin'
 
 const LABEL = 'Grow'
-const HINT = [
+const HINT = 'AARRR'
+const STEPS = [
   'Define what the stage means for this product',
   "Find the leak: why aren't users converting at this stage today?",
   'Brainstorm fixes for that stage',
@@ -30,9 +31,10 @@ function variantA(ctx: GenContext, archetypeId: string, archetypeName: string): 
     bin: 'grow',
     label: LABEL,
     archetype: archetypeName,
-    text: capFirst(`grow ${metric.metric_name.toLowerCase()} for ${company.company_name.toLowerCase()}.`),
+    text: capFirst(`grow ${metric.metric_name} for ${company.company_name}.`),
     subject: company.company_name,
     hint: HINT,
+    steps: STEPS,
   }
 }
 
@@ -44,9 +46,10 @@ function variantB(ctx: GenContext, archetypeId: string, archetypeName: string): 
     bin: 'grow',
     label: LABEL,
     archetype: archetypeName,
-    text: capFirst(`grow ${metric.metric_name.toLowerCase()} for ${company.company_name.toLowerCase()}'s ${feature.feature_name.toLowerCase()}.`),
+    text: capFirst(`grow ${metric.metric_name} for ${company.company_name}'s ${feature.feature_name}.`),
     subject: company.company_name,
     hint: HINT,
+    steps: STEPS,
   }
 }
 
@@ -54,6 +57,7 @@ export const grow: Bin = {
   id: 'grow',
   label: LABEL,
   hint: HINT,
+  steps: STEPS,
   generate(ctx) {
     const { id: archetypeId, name: archetypeName } = pickArchetype(ctx)
     return ctx.rng.next() < 0.5

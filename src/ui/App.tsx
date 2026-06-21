@@ -50,23 +50,21 @@ export default function App() {
 
   const toggleHint = useCallback(() => setHintOpen((o) => !o), [])
 
-  // Stable refs so the keyboard listener never needs to re-register
-  const dealRef = useRef(deal)
-  const toggleHintRef = useRef(toggleHint)
-  const playRef = useRef(play)
-  const stopRef = useRef(timer.stop)
-  dealRef.current = deal
-  toggleHintRef.current = toggleHint
-  playRef.current = play
-  stopRef.current = timer.stop
+  // Keep the latest handlers in a single ref so the keyboard listener can stay
+  // registered once without going stale. The ref is only updated inside effects.
+  const handlersRef = useRef({ deal, toggleHint, play, stop: timer.stop })
+  useEffect(() => {
+    handlersRef.current = { deal, toggleHint, play, stop: timer.stop }
+  }, [deal, toggleHint, play, timer.stop])
 
   useEffect(() => {
     function onKey(e: KeyboardEvent) {
       if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) return
-      if (e.key === ' ') { e.preventDefault(); dealRef.current() }
-      if (e.key === 'h' || e.key === 'H') { e.preventDefault(); toggleHintRef.current() }
-      if (e.key === 'p' || e.key === 'P') { e.preventDefault(); playRef.current() }
-      if (e.key === 's' || e.key === 'S') { e.preventDefault(); stopRef.current() }
+      const { deal, toggleHint, play, stop } = handlersRef.current
+      if (e.key === ' ') { e.preventDefault(); deal() }
+      if (e.key === 'h' || e.key === 'H') { e.preventDefault(); toggleHint() }
+      if (e.key === 'p' || e.key === 'P') { e.preventDefault(); play() }
+      if (e.key === 's' || e.key === 'S') { e.preventDefault(); stop() }
     }
     window.addEventListener('keydown', onKey)
     return () => window.removeEventListener('keydown', onKey)

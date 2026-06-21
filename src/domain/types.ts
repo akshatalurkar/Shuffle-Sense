@@ -10,7 +10,10 @@ export interface Prompt {
   archetype: string
   text: string
   subject: string
-  hint: string[]
+  // The named framework that guides this bin's answer (e.g. 'CIRCLES').
+  hint: string
+  // The ordered steps of that framework, shown in the hint card.
+  steps: string[]
 }
 
 export interface GenContext {

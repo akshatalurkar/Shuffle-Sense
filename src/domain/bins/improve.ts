@@ -8,7 +8,8 @@ import {
 import { pickArchetype, capFirst, type Bin } from './bin'
 
 const LABEL = 'Improve'
-const HINT = [
+const HINT = 'CIRCLES'
+const STEPS = [
   'Comprehend the situation',
   'Identify the user',
   'Report their needs',
@@ -28,9 +29,10 @@ function variantA(ctx: GenContext, archetypeId: string, archetypeName: string): 
     bin: 'improve',
     label: LABEL,
     archetype: archetypeName,
-    text: capFirst(`improve ${feature.feature_name.toLowerCase()} for ${company.company_name.toLowerCase()}.`),
+    text: capFirst(`improve ${feature.feature_name} for ${company.company_name}.`),
     subject: company.company_name,
     hint: HINT,
+    steps: STEPS,
   }
 }
 
@@ -41,9 +43,10 @@ function variantB(ctx: GenContext, archetypeId: string, archetypeName: string): 
     bin: 'improve',
     label: LABEL,
     archetype: archetypeName,
-    text: capFirst(`improve ${company.company_name.toLowerCase()} for ${segment.segment_name.toLowerCase()}.`),
+    text: capFirst(`improve ${company.company_name} for ${segment.segment_name}.`),
     subject: company.company_name,
     hint: HINT,
+    steps: STEPS,
   }
 }
 
@@ -51,6 +54,7 @@ export const improve: Bin = {
   id: 'improve',
   label: LABEL,
   hint: HINT,
+  steps: STEPS,
   generate(ctx) {
     const { id: archetypeId, name: archetypeName } = pickArchetype(ctx)
     return ctx.rng.next() < 0.5

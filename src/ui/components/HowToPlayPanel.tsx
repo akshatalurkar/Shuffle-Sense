@@ -1,4 +1,4 @@
-// A quick four-step rundown of how the app works.
+// A quick rundown of how the app works.
 export function HowToPlayPanel() {
   return (
     <div className="panel">
